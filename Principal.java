@@ -21,6 +21,7 @@ public class Principal {
 
         int opt; 
         int idEstacionamiento;
+        boolean isOut = false;
 
         System.out.println("=============================== INGRESO ESTACIONAMIENTO ===============================");
         System.out.println("---- Para poder empezar necesitamos los datos de los 5 estacionamientos: \n");
@@ -73,60 +74,73 @@ public class Principal {
             estacionamiento.setEspaciosParqueo(parqueo);
         }
 
-        System.out.println("------------------- MENU OPCIONES -------------------");
-        System.out.println("selecciona alguna de las siguientes opcines: ");
+        while(isOut == false){
+        
+            System.out.println("------------------- MENU OPCIONES -------------------");
+            System.out.println("selecciona alguna de las siguientes opcines: ");
 
-        System.out.println("1...........................Ingresar Carro");
-        System.out.println("2...........................Egresar Carro");
-        System.out.println("3...........................Estadisticas");
-        System.out.println("4...........................Salir");
-        opt = Integer.parseInt(teclado.nextLine());
+            System.out.println("1...........................Ingresar Carro");
+            System.out.println("2...........................Egresar Carro");
+            System.out.println("3...........................Estadisticas");
+            System.out.println("4...........................Salir");
+            opt = Integer.parseInt(teclado.nextLine());
 
-        switch(opt){
-            case 1:
-                Detalle newDetalle = new Detalle();
-                System.out.println("\n ------------------------ === INGRESO DE CARROS ------------------------ ===\n");
+            switch(opt){
+                case 1:
+                    Detalle newDetalle = new Detalle();
+                    System.out.println("\n ------------------------ === INGRESO DE CARROS ------------------------ ===\n");
 
-                for(int i = 0 ; i < estacionamiento.getEspaciosParqueo().size() ; i++){
-                    if(estacionamiento.getEspaciosParqueo().get(i).getStatus() == false){
-                        System.out.println(("==================   ID: " + i+ "   ============================================"));
-                        System.out.println("LARGO: " + estacionamiento.getEspaciosParqueo().get(i).getLargo() + "   ALTURA: " + estacionamiento.getEspaciosParqueo().get(i).getAltura() + "   ANCHO: " + estacionamiento.getEspaciosParqueo().get(i).getAncho());
-                        System.out.println("TECHADO: " + estacionamiento.getEspaciosParqueo().get(i).getIsTechado() + "   ELEVADO: " + estacionamiento.getEspaciosParqueo().get(i).getIsAereo());
-                        System.out.println("===================   PRECIO: " + estacionamiento.getEspaciosParqueo().get(i).getPrecio() + "   ===================");
+                    for(int i = 0 ; i < estacionamiento.getEspaciosParqueo().size() ; i++){
+                        if(estacionamiento.getEspaciosParqueo().get(i).getStatus() == false){
+                            System.out.println(("==================   ID: " + i+ "   ============================================"));
+                            System.out.println("LARGO: " + estacionamiento.getEspaciosParqueo().get(i).getLargo() + "   ALTURA: " + estacionamiento.getEspaciosParqueo().get(i).getAltura() + "   ANCHO: " + estacionamiento.getEspaciosParqueo().get(i).getAncho());
+                            System.out.println("TECHADO: " + estacionamiento.getEspaciosParqueo().get(i).getIsTechado() + "   ELEVADO: " + estacionamiento.getEspaciosParqueo().get(i).getIsAereo());
+                            System.out.println("===================   PRECIO: " + estacionamiento.getEspaciosParqueo().get(i).getPrecio() + "   ===================");
+                        }
                     }
-                }
 
-                System.out.println("\n selecciona una estacionamiento: ");
-                idEstacionamiento = Integer.parseInt(teclado.nextLine());
-                estacionamiento.getEspaciosParqueo().get(idEstacionamiento).setStatus(true);
+                    System.out.println("\n selecciona una estacionamiento: ");
+                    idEstacionamiento = Integer.parseInt(teclado.nextLine());
+                    estacionamiento.getEspaciosParqueo().get(idEstacionamiento).setStatus(true);
 
-                System.out.println("Ingresa la placa del carro: ");
-                newDetalle.setPlaca(teclado.nextLine());
-                System.out.println("Ingresa la marca del carro: ");
-                newDetalle.setMarcal(teclado.nextLine());
-                System.out.println("Ingresa el modelo del carro: ");
-                newDetalle.setModelo(teclado.nextLine());
-                newDetalle.setStatus(true);
-                newDetalle.setEstacionamientos(estacionamiento);
+                    System.out.println("Ingresa la placa del carro: ");
+                    newDetalle.setPlaca(teclado.nextLine());
+                    System.out.println("Ingresa la marca del carro: ");
+                    newDetalle.setMarcal(teclado.nextLine());
+                    System.out.println("Ingresa el modelo del carro: ");
+                    newDetalle.setModelo(teclado.nextLine());
+                    newDetalle.setStatus(true);
+                    newDetalle.setEstacionamientos(estacionamiento);
 
-                detalles.add(newDetalle);
-                break;
+                    detalles.add(newDetalle);
+                    break;
 
-            case 2:                
-                System.out.println("\n ------------------------ === EGRESO DE CARROS ------------------------ ===\n");
-                for(int i = 0 ; i < detalles.size() ; i++){
-                    if(detalles.get(i).getStatus() == false){
-                        System.out.println(("==================   ID: " + i+ "   ============================================"));
+                case 2:                
+                    System.out.println("\n ------------------------ === EGRESO DE CARROS ------------------------ ===\n");
+                    for(int i = 0 ; i < detalles.size() ; i++){
+                        if(detalles.get(i).getStatus() == false){
+                            System.out.println(("==================   ID: " + i+ "   ============================================"));
+                            System.out.println(("PLACA: " + detalles.get(i).getPlaca() + "   MARCA: " + detalles.get(i).getMarcal() + "   MODELO: " + detalles.get(i).getModelo()));                        
+                            System.out.println("================================================================================");
+                        }    
                     }
-                }
+                    System.out.println("selecciona el carro: ");
+                    idEstacionamiento = Integer.parseInt(teclado.nextLine());
 
-                break;
-            case 3:
-                System.out.println("OPCION 3");
-                break;
-            case 4:
-                System.out.println("OPCION 4");
-                break;
+                    System.out.println("Ingresa el total de horas: ");
+                    detalles.get(idEstacionamiento).setHorasEstacionado(Integer.parseInt(teclado.nextLine()));
+                    System.out.println("Ingrese ");
+
+                    detalles.get(idEstacionamiento).setStatus(false);                
+                    break;
+                case 3:
+                    System.out.println("OPCION 3");
+                    break;
+                case 4:
+                    isOut = true;
+                    System.out.println("================ UN GUSTO PODER ATENDERTE ================");
+                    break;
+            }
         }
 
     }
